@@ -1,0 +1,12 @@
+site_name: Nexus Framework
+theme:
+  name: readthedocs
+plugins:
+  - search
+markdown_extensions:
+  - markdown_include.include:
+      base_path: .
+  - admonition
+
+nav:
+  - Home: index.md
