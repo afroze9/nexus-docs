@@ -1,4 +1,6 @@
 site_name: Nexus Framework
+repo_url: https://github.com/nexus-framework
+site_author: afroze9
 theme:
   name: readthedocs
 plugins:
@@ -7,6 +9,28 @@ markdown_extensions:
   - markdown_include.include:
       base_path: .
   - admonition
-
 nav:
   - Home: index.md
+  - Getting Started:
+      - Prerequisites: getting-started/prerequisites.md
+      - Quick Start: getting-started/quick-start.md
+      - Setting up Auth0: getting-started/auth0.md
+      - Add a Service: getting-started/new-service.md
+  - Architecture Overview:
+      - Overview: architecture-overview/index.md
+      - API Gateway: architecture-overview/api-gateway.md
+      - Service Discovery: architecture-overview/service-discovery.md
+      - Health Checks Dashboard: architecture-overview/health-checks-dashboard.md
+      - API Services: architecture-overview/api-services.md
+      - Frontend App: architecture-overview/frontend-app.md
+  - Libraries:
+      - Auth: libraries/auth.md
+      - Common: libraries/common.md
+      - Configuration: libraries/configuration.md
+      - Logs: libraries/logs.md
+      - Management: libraries/management.md
+      - Persistence: libraries/persistence.md
+      - Telemetry: libraries/telemetry.md
+      - Web Framework: libraries/web-framework.md
+  - Known Issues:
+      - Known Issues: known-issues.md

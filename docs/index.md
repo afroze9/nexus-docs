@@ -1,17 +1,13 @@
-# Welcome to MkDocs
+Nexus is a Framework for easily setting up microservice solutions for .NET using Steeltoe.
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+**Nexus Solution**:
+The base solution to be used as a starter.
 
-## Commands
+**Nexus Tool**:
+A .NET CLI tool to ease development.
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+**Nexus Template**:
+Contains API Service Templates.
 
-## Project layout
-
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+**Nexus Libraries**:
+The core Libraries used to setup the framework/solution.
