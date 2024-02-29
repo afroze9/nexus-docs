@@ -1,5 +1,7 @@
 # Nexus.Telemetry
 
+Note: This content is outdated and needs to be updated.
+
 ## Overview
 ![Overview](../img/nexus-tracing.png)
 

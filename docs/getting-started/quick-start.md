@@ -5,14 +5,14 @@ dotnet tool install --global nexus-tool
 
 From an empty directory run:
 ```powershell
-nexus init -n "HelloWorld"
+nexus init "hello-world"
 ```
 
 Add your own service (optional):
 ```powershell
-nexus add-service -n "people"
+nexus add service "new-service"
 ```
-A detailed guide on how to add new services can be found here
+A detailed guide on how to add new services can be found [here](./new-service.md)
 
 Run the supporting services:
 ```powershell

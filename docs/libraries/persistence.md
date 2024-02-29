@@ -1,5 +1,7 @@
 # Nexus.Persistence
 
+Note: This content is outdated and needs to be updated.
+
 ## AuditableDbContext
 
 To enable auditing for entities, create an `ApplicationDbContext` and extend `AuditableDbContext`:

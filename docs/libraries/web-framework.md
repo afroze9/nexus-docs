@@ -1,5 +1,7 @@
 # Nexus.Framework.Web
 
+Note: This content is outdated and needs to be updated.
+
 ## Application Bootstrapper
 Currently, Nexus provides a default bootstrapper implementation for Web Applications (MVC APIs).
 The default bootstrapper does the following:
@@ -30,7 +32,7 @@ To customize the bootstrap process, create a new bootstrapper for your service, 
 override the required functions:
 
 ```csharp
-public class CompanyApiBootstrapper : Bootstrapper
+public class CompanyApiBootstrapper : NexusServiceBootstrapper
 {
     public CompanyApiBootstrapper(string[] args) : base(args)
     {

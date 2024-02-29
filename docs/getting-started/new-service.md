@@ -3,18 +3,18 @@
 From the root of the application, run the following command:
 
 ```powershell
-nexus add-service -n "servicename"
+nexus add service "servicename"
 ```
 
 e.g.
 ```powershell
-nexus add-service -n "company"
+nexus add service "company"
 ```
 
 ## Entities
-To add a new entity, create a new class in the `Entities` folder and have it extend the `AuditableEntityBase` class:
+To add a new entity, create a new class in the `Entities` folder and have it extend the `AuditableNexusEntityBase` class:
 ```csharp
-public class Company : AuditableEntityBase
+public class Company : AuditableNexusEntityBase
 {
     public Company(string name)
     {
@@ -27,7 +27,7 @@ public class Company : AuditableEntityBase
 }
 ```
 
-The `AuditableEntityBase` class contains fields used to manage audit information including when the entity was 
+The `AuditableNexusEntityBase` class contains fields used to manage audit information including when the entity was 
 created/modifed and by which user. It also contains an Identifier field.
 
 ## Database Access
@@ -37,6 +37,10 @@ fields and the table. This can be done by adding a new Configuration class in th
 ```csharp
 public class CompanyConfiguration : IEntityTypeConfiguration<Company>
 {
+    /// <summary>
+    ///     Configures the entity type and its relationships.
+    /// </summary>
+    /// <param name="builder">The builder used to configure the entity type.</param>
     public void Configure(EntityTypeBuilder<Company> builder)
     {
         // Configures the maximum length and requirement of the company name.
@@ -50,9 +54,13 @@ public class CompanyConfiguration : IEntityTypeConfiguration<Company>
         // Configures a many-to-many relationship between the company and tag entities.
         builder
             .HasMany<Tag>(c => c.Tags)
-            .WithMany(t => t.Companies);
+            .WithMany(t => t.Companies)
+            .UsingEntity("CompanyTag", typeof(Dictionary<string, object>),
+                right => right.HasOne(typeof(Tag)).WithMany().HasForeignKey("TagId"),
+                left => left.HasOne(typeof(Company)).WithMany().HasForeignKey("CompanyId"));
     }
 }
+
 ```
 
 ### ApplicationDbContext
@@ -69,10 +77,11 @@ public class ApplicationDbContext : AuditableDbContext
 ```
 
 ### Repositories
-Repositories provide a standard way to fetch data from the Database. The EfCustomRepository provides a set of 
+Repositories provide a standard way to fetch data from the Database. The EfNexusRepository provides a set of 
 methods for this. It can be extended to allow for custom functionality on top of the provided one:
 ```csharp
-public class CompanyRepository : EfCustomRepository<Company>
+[NexusService(NexusServiceLifeTime.Scoped)]
+public class CompanyRepository : EfNexusRepository<Company>
 {
     public CompanyRepository(ApplicationDbContext context) : base(context)
     {
@@ -98,6 +107,7 @@ public class CompanyRepository : EfCustomRepository<Company>
 ### UnitOfWork
 In case you need transactional support, you can also add the Repository to the `UnitOfWork`:
 ```csharp
+[NexusService(NexusServiceLifeTime.Scoped)]
 public class UnitOfWork : UnitOfWorkBase
 {
     public UnitOfWork(ApplicationDbContext context,
@@ -132,9 +142,9 @@ The second commands applies the migrations to the database.
 ## Api Controllers and Request/Response Models
 * Controllers consume the entity services and provide REST functionality
 * The endpoints accept Requests. These are special kinds of DTOs and are stored in the `Model` folder. They follow the
-name convention `<Entity><Action?>RequestModel`. e.g. `CompanyCreateRequestModel`.
+name convention `<Entity>[Action]RequestModel`. e.g. `CompanyCreateRequestModel`.
 * The endpoints return Responses. These are special kinds of DTOs and are stored in the `Model` folder. They follow the
-  name convention `<Entity><Action?>ResponseModel`. e.g. `CompanyResponseModel`.
+  name convention `<Entity>[Adjective]ResponseModel`. e.g. `CompanyResponseModel`.
 
 ## Request Model Validation
 The services are setup to use FluentValidation to ensure the requests are valid. The validators extend the 
@@ -177,4 +187,4 @@ be reviewed in the `CompanyController`.
 
 ## Customizing Bootstrapper / Dependency Injection
 Ensure your services are registered in the DI container by reading the guide on  setting up the framework
-[here](../../libraries/web-framework)
+[here](../libraries/web-framework.md)

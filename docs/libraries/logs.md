@@ -1,5 +1,7 @@
 # Nexus.Logs
 
+Note: This content is outdated and needs to be updated.
+
 ![Overview](../img/nexus-logs.png)
 
 ## Configuration

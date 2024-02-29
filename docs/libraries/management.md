@@ -1,5 +1,7 @@
 # Nexus.Management
 
+Note: This content is outdated and needs to be updated.
+
 ## Configuration
 
 Ensure the following settings exist in appsettings.json / Environment variables / Consul KV:
